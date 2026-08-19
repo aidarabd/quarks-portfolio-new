@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { CustomCursor } from "@/components/CustomCursor";
@@ -13,33 +15,40 @@ const display = Space_Grotesk({
 });
 
 const body = Inter({
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   variable: "--font-body",
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "Quarks Code — Custom Software for Businesses & Government",
-    template: "%s | Quarks Code",
-  },
-  description:
-    "Quarks Code develops custom software solutions that automate processes, integrate systems, and build digital platforms for businesses and government agencies. Based in Bishkek, Kyrgyzstan.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("Layout");
+  return {
+    title: {
+      default: t("metaTitleDefault"),
+      template: t("metaTitleTemplate"),
+    },
+    description: t("metaDescription"),
+  };
+}
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body className={`${display.variable} ${body.variable} font-sans antialiased`}>
-        <ThemeProvider>
-          <CustomCursor />
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </ThemeProvider>
+        <NextIntlClientProvider messages={messages}>
+          <ThemeProvider>
+            <CustomCursor />
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

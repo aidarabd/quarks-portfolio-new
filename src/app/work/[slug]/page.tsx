@@ -1,15 +1,21 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
-import { projects } from "@/data/content";
+import { mergeProjects, projectsMeta } from "@/data/content";
 import { Reveal } from "@/components/ui/Reveal";
 import { Tag } from "@/components/ui/Tag";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { CoverMedia } from "@/components/ui/CoverMedia";
 
+// Locale is resolved per-request from a cookie, so this route can't be
+// statically prerendered without freezing whichever locale was active at
+// build time.
+export const dynamic = "force-dynamic";
+
 export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }));
+  return projectsMeta.map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({
@@ -18,6 +24,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const t = await getTranslations();
+  const projects = mergeProjects(t.raw("Projects"));
   const project = projects.find((p) => p.slug === slug);
   if (!project) return {};
   return {
@@ -32,6 +40,9 @@ export default async function CaseStudyPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const tCase = await getTranslations("CaseStudy");
+  const t = await getTranslations();
+  const projects = mergeProjects(t.raw("Projects"));
   const index = projects.findIndex((p) => p.slug === slug);
   if (index === -1) notFound();
 
@@ -49,7 +60,7 @@ export default async function CaseStudyPage({
               data-cursor="link"
               className="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-wide text-ink/60 hover:text-acid dark:text-paper/60"
             >
-              <ArrowLeft size={16} /> All Work
+              <ArrowLeft size={16} /> {tCase("allWork")}
             </Link>
           </Reveal>
 
@@ -64,7 +75,7 @@ export default async function CaseStudyPage({
                   data-cursor="link"
                   className="inline-flex items-center gap-1.5 rounded-full border border-ink/15 px-3 py-1.5 text-xs font-medium uppercase tracking-wide text-ink/60 transition-colors hover:border-acid hover:text-acid dark:border-paper/15 dark:text-paper/60"
                 >
-                  Visit Site <ArrowUpRight size={12} />
+                  {tCase("visitSite")} <ArrowUpRight size={12} />
                 </a>
               )}
             </div>
@@ -92,19 +103,19 @@ export default async function CaseStudyPage({
       <div className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28">
         <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
           <Reveal>
-            <h2 className="font-display text-2xl text-ink dark:text-paper">The Problem</h2>
+            <h2 className="font-display text-2xl text-ink dark:text-paper">{tCase("theProblem")}</h2>
             <p className="mt-4 leading-relaxed text-ink/60 dark:text-paper/60">{project.problem}</p>
           </Reveal>
           <Reveal delay={0.06}>
-            <h2 className="font-display text-2xl text-ink dark:text-paper">The Solution</h2>
+            <h2 className="font-display text-2xl text-ink dark:text-paper">{tCase("theSolution")}</h2>
             <p className="mt-4 leading-relaxed text-ink/60 dark:text-paper/60">{project.solution}</p>
           </Reveal>
         </div>
 
         <Reveal delay={0.1}>
           <div className="mt-14 flex flex-wrap gap-2">
-            {project.tech.map((t) => (
-              <Tag key={t}>{t}</Tag>
+            {project.tech.map((tech) => (
+              <Tag key={tech}>{tech}</Tag>
             ))}
           </div>
         </Reveal>
@@ -136,7 +147,7 @@ export default async function CaseStudyPage({
             data-cursor="link"
             className="flex items-center gap-2 text-sm font-medium uppercase tracking-wide text-ink/60 hover:text-acid dark:text-paper/60"
           >
-            All Work <ArrowUpRight size={14} />
+            {tCase("allWork")} <ArrowUpRight size={14} />
           </Link>
           <Link
             href={`/work/${next.slug}`}
@@ -151,10 +162,10 @@ export default async function CaseStudyPage({
 
       <div className="px-6 py-24 text-center md:px-10">
         <h2 className="font-display text-4xl font-medium tracking-tight text-ink sm:text-5xl dark:text-paper">
-          Have a similar challenge?
+          {tCase("haveChallenge")}
         </h2>
         <div className="mt-8 flex justify-center">
-          <MagneticButton href="/contact">Start a Conversation</MagneticButton>
+          <MagneticButton href="/contact">{tCase("startConversation")}</MagneticButton>
         </div>
       </div>
     </article>

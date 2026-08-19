@@ -4,10 +4,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useState } from "react";
-import { projects } from "@/data/content";
+import type { Project } from "@/data/content";
 import { CoverMedia } from "@/components/ui/CoverMedia";
 
-export function WorkList() {
+export function WorkList({ projects }: { projects: Project[] }) {
   const [active, setActive] = useState<string | null>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
 

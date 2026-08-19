@@ -1,15 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { projects } from "@/data/content";
+import type { Project } from "@/data/content";
 import { CoverMedia } from "@/components/ui/CoverMedia";
 
-const back = projects.find((p) => p.slug === "atria")!;
-const front = projects.find((p) => p.slug === "kit-forum")!;
+export function HeroPhotoStack({ back, front }: { back: Project; front: Project }) {
+  const t = useTranslations("Hero");
 
-export function HeroPhotoStack() {
   return (
     <div className="relative mx-auto h-[420px] w-full max-w-md sm:h-[520px]">
       <motion.a
@@ -53,7 +53,7 @@ export function HeroPhotoStack() {
           className="flex items-center gap-2 rounded-full bg-paper px-4 py-2 text-xs font-medium uppercase tracking-wide text-ink shadow-xl dark:bg-ink dark:text-paper"
         >
           <span className="h-1.5 w-1.5 rounded-full bg-acid" />
-          Selected Work
+          {t("selectedWork")}
           <ArrowUpRight size={14} />
         </Link>
       </motion.div>

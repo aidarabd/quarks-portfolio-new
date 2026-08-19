@@ -1,18 +1,20 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { services } from "@/data/content";
+import { getTranslations } from "next-intl/server";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 
-export function ServicesIndex() {
+type Service = { index: string; title: string; subtitle: string };
+
+export async function ServicesIndex() {
+  const t = await getTranslations("ServicesIndex");
+  const tRoot = await getTranslations();
+  const services = tRoot.raw("Services") as Service[];
+
   return (
     <section className="bg-ink-soft/[0.03] px-6 py-24 md:px-10 md:py-32 dark:bg-paper/[0.02]">
       <div className="mx-auto max-w-7xl">
-        <SectionHeading
-          tag="What We Do"
-          title="Software solutions that drive real results"
-          description="We focus on the intersection of engineering excellence and business impact — building systems that work reliably, scale smoothly, and deliver measurable value."
-        />
+        <SectionHeading tag={t("tag")} title={t("title")} description={t("description")} />
 
         <div className="mt-16 grid grid-cols-1 gap-x-10 md:grid-cols-2">
           {services.map((service, i) => (
@@ -42,7 +44,7 @@ export function ServicesIndex() {
             data-cursor="link"
             className="mt-10 inline-flex items-center gap-2 text-sm font-medium uppercase tracking-wide text-ink/70 hover:text-acid dark:text-paper/70"
           >
-            Explore all services <ArrowUpRight size={16} />
+            {t("exploreAll")} <ArrowUpRight size={16} />
           </Link>
         </Reveal>
       </div>

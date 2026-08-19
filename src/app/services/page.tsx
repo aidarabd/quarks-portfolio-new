@@ -1,25 +1,28 @@
 import type { Metadata } from "next";
-import { services, process } from "@/data/content";
+import { getTranslations } from "next-intl/server";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { CTASection } from "@/components/sections/CTASection";
 
-export const metadata: Metadata = {
-  title: "Services",
-  description:
-    "Process automation, custom web applications, system integration, and government digital solutions. See how Quarks Code can help your organization.",
-};
+type Service = { index: string; title: string; subtitle: string; description: string; outcomes: string[] };
+type ProcessStep = { step: string; title: string; description: string };
 
-export default function ServicesPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("ServicesPage");
+  return { title: t("title"), description: t("description") };
+}
+
+export default async function ServicesPage() {
+  const t = await getTranslations("ServicesPage");
+  const tRoot = await getTranslations();
+  const services = tRoot.raw("Services") as Service[];
+  const process = tRoot.raw("Process") as ProcessStep[];
+
   return (
     <div>
       <div className="px-6 pb-16 pt-40 md:px-10 md:pt-48">
         <div className="mx-auto max-w-7xl">
-          <SectionHeading
-            tag="Services"
-            title="What we build and how we help"
-            description="We specialize in one area: replacing manual operations with reliable, scalable digital systems. Here's exactly what we do and what you get."
-          />
+          <SectionHeading tag={t("tag")} title={t("title")} description={t("description")} />
 
           <div className="mt-20 flex flex-col">
             {services.map((service, i) => (
@@ -37,7 +40,7 @@ export default function ServicesPage() {
                   </div>
                   <div>
                     <p className="text-xs font-medium uppercase tracking-widest text-ink/40 dark:text-paper/40">
-                      What You Get
+                      {t("whatYouGet")}
                     </p>
                     <ul className="mt-4 space-y-2">
                       {service.outcomes.map((outcome) => (
@@ -58,9 +61,9 @@ export default function ServicesPage() {
       <div className="bg-ink-soft/[0.03] px-6 py-24 md:px-10 md:py-32 dark:bg-paper/[0.02]">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
-            tag="How We Work"
-            title="Our delivery process"
-            description="Structured delivery from discovery to launch — every step is designed to reduce risk and maximize the value we deliver."
+            tag={t("processTag")}
+            title={t("processTitle")}
+            description={t("processDescription")}
           />
 
           <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">

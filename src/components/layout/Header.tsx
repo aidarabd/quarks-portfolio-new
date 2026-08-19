@@ -2,17 +2,27 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { navLinks } from "@/data/content";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 import { cx } from "@/lib/utils";
 
 export function Header() {
+  const t = useTranslations("Nav");
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+
+  const navLinks = [
+    { href: "/", label: t("home") },
+    { href: "/work", label: t("work") },
+    { href: "/services", label: t("services") },
+    { href: "/about", label: t("about") },
+    { href: "/contact", label: t("contact") },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -56,17 +66,19 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-4 md:flex">
+          <LanguageSwitcher />
           <ThemeToggle />
           <Link
             href="/contact"
             data-cursor="link"
             className="rounded-full bg-ink px-5 py-2.5 text-sm font-medium uppercase tracking-wide text-paper transition-colors hover:bg-acid hover:text-ink dark:bg-paper dark:text-ink dark:hover:bg-acid"
           >
-            Start a Project
+            {t("startProject")}
           </Link>
         </div>
 
         <div className="flex items-center gap-3 md:hidden">
+          <LanguageSwitcher />
           <ThemeToggle />
           <button
             type="button"
@@ -102,7 +114,7 @@ export function Header() {
                 href="/contact"
                 className="mt-4 rounded-full bg-ink px-5 py-3 text-center text-sm font-medium uppercase tracking-wide text-paper dark:bg-paper dark:text-ink"
               >
-                Start a Project
+                {t("startProject")}
               </Link>
             </nav>
           </motion.div>

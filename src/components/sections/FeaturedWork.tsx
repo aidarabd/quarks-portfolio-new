@@ -1,29 +1,29 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { projects } from "@/data/content";
+import { getTranslations } from "next-intl/server";
+import { mergeProjects } from "@/data/content";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { CoverMedia } from "@/components/ui/CoverMedia";
 
-export function FeaturedWork() {
+export async function FeaturedWork() {
+  const t = await getTranslations("FeaturedWork");
+  const tRoot = await getTranslations();
+  const projects = mergeProjects(tRoot.raw("Projects"));
   const featured = projects.slice(0, 4);
 
   return (
     <section id="work" className="px-6 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-          <SectionHeading
-            tag="Case Studies"
-            title="Systems we've delivered"
-            description="Real results from complex, high-stakes projects — every platform we build is designed to work at scale and under pressure."
-          />
+          <SectionHeading tag={t("tag")} title={t("title")} description={t("description")} />
           <Reveal delay={0.1}>
             <Link
               href="/work"
               data-cursor="link"
               className="flex items-center gap-2 whitespace-nowrap text-sm font-medium uppercase tracking-wide text-ink/70 hover:text-acid dark:text-paper/70"
             >
-              View all cases <ArrowUpRight size={16} />
+              {t("viewAll")} <ArrowUpRight size={16} />
             </Link>
           </Reveal>
         </div>

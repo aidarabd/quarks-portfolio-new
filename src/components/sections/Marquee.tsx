@@ -1,7 +1,9 @@
-import { marqueeWords } from "@/data/content";
+import { getTranslations } from "next-intl/server";
 
-export function Marquee() {
-  const items = [...marqueeWords, ...marqueeWords];
+export async function Marquee() {
+  const t = await getTranslations("Marquee");
+  const words = t.raw("words") as string[];
+  const items = [...words, ...words];
 
   return (
     <div className="overflow-hidden border-y border-ink/10 bg-ink py-5 dark:border-paper/10 dark:bg-paper">

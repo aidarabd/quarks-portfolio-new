@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { team, values } from "@/data/content";
+import { getTranslations } from "next-intl/server";
+import { mergeTeam } from "@/data/content";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { CTASection } from "@/components/sections/CTASection";
 
-export const metadata: Metadata = {
-  title: "About",
-  description:
-    "Meet the Quarks Code team — senior engineers and project managers with deep experience delivering national-scale government systems and enterprise platforms.",
-};
+type Value = { title: string; description: string };
+type TeamText = { name: string; role: string; bio: string; specialties: string[] };
 
 function initials(name: string) {
   return name
@@ -19,30 +17,30 @@ function initials(name: string) {
     .join("");
 }
 
-export default function AboutPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("AboutPage");
+  return { title: t("title"), description: t("description") };
+}
+
+export default async function AboutPage() {
+  const t = await getTranslations("AboutPage");
+  const tRoot = await getTranslations();
+  const values = tRoot.raw("Values") as Value[];
+  const team = mergeTeam(tRoot.raw("Team") as TeamText[]);
+
   return (
     <div>
       <div className="px-6 pb-16 pt-40 md:px-10 md:pt-48">
         <div className="mx-auto max-w-7xl">
-          <SectionHeading tag="About Us" title="Built by engineers who understand business" />
+          <SectionHeading tag={t("tag")} title={t("title")} />
           <Reveal delay={0.1}>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink/60 dark:text-paper/60">
-              Quarks Code is a software development company focused on helping
-              organizations automate processes, streamline operations, and
-              build scalable digital products. Our experience spans
-              government, finance, and healthcare — where reliability,
-              security, and efficiency are non-negotiable.
+              {t("description")}
             </p>
           </Reveal>
           <Reveal delay={0.16}>
             <p className="mt-10 max-w-3xl font-display text-3xl leading-snug tracking-tight text-ink sm:text-4xl dark:text-paper">
-              We believe software should do more than solve today&rsquo;s
-              problems — it should create a foundation for future growth. Our
-              goal is simple:{" "}
-              <span className="italic text-acid">
-                transform complex business challenges into efficient digital
-                systems that create measurable value.
-              </span>
+              {t("quoteBefore")} <span className="italic text-acid">{t("quoteAccent")}</span>
             </p>
           </Reveal>
         </div>
@@ -50,7 +48,7 @@ export default function AboutPage() {
 
       <div className="bg-ink-soft/[0.03] px-6 py-20 md:px-10 dark:bg-paper/[0.02]">
         <div className="mx-auto max-w-7xl">
-          <SectionHeading tag="What We Stand For" title="Our principles" />
+          <SectionHeading tag={t("valuesTag")} title={t("valuesTitle")} />
           <div className="mt-14 grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2">
             {values.map((value, i) => (
               <Reveal key={value.title} delay={i * 0.05}>
@@ -69,9 +67,9 @@ export default function AboutPage() {
       <div className="px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
-            tag="The Team"
-            title="People who build your software"
-            description="A small, focused team of senior specialists — every person who works on your project is experienced, accountable, and committed to the outcome."
+            tag={t("teamTag")}
+            title={t("teamTitle")}
+            description={t("teamDescription")}
           />
 
           <div className="mt-16 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3">
