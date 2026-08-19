@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f4f3ef;
+  color: #0b0b0d;
+}
+
+.dark body {
+  background-color: #0b0b0d;
+  color: #f4f3ef;
+}
+
+::selection {
+  background-color: #cfff04;
+  color: #0b0b0d;
+}
+
+@media (pointer: fine) {
+  body,
+  a,
+  button {
+    cursor: none !important;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
