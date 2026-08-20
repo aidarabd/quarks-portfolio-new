@@ -17,7 +17,7 @@ export default {
           DEFAULT: "#f4f3ef",
           soft: "#e9e7e0",
         },
-        acid: "#cfff04",
+        acid: "rgb(var(--acid) / <alpha-value>)",
       },
       fontFamily: {
         display: ["var(--font-display)", "system-ui", "sans-serif"],

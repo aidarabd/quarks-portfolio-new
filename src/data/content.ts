@@ -60,6 +60,18 @@ export const projectsMeta: ProjectMeta[] = [
     cover: "/images/work/booka.jpg",
     url: "https://booka.life",
   },
+  {
+    slug: "tinlake",
+    year: "2024",
+    cover: "/images/work/tinlake.png",
+    url: "https://t.me/tinlake_bot",
+  },
+  {
+    slug: "coin-app",
+    year: "2024",
+    cover: "/images/work/coin-app.png",
+    url: "https://t.me/coin_app_bot",
+  },
 ];
 
 type ProjectText = {

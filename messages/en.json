@@ -324,6 +324,24 @@
         { "metric": "24/7", "label": "Automated bookings, zero phone calls" },
         { "metric": "Reduced", "label": "No-shows via automated reminders" }
       ]
+    },
+    {
+      "tag": "EdTech · Telegram Mini App",
+      "title": "Tinlake",
+      "overview": "EdTech mini-app delivered entirely through Telegram, reaching learners without requiring a separate app install.",
+      "problem": "Reaching students where they already spend time — inside Telegram — without the friction and drop-off of a native app download.",
+      "solution": "Built a Telegram-native mini-app experience for EdTech content and interactions, distributed through the Tinlake bot.",
+      "tech": ["Telegram Bot API", "Telegram Mini Apps"],
+      "results": [{ "metric": "62,977+", "label": "Monthly active users" }]
+    },
+    {
+      "tag": "Fintech · Telegram Mini App",
+      "title": "Coin App (DIANA)",
+      "overview": "Telegram-based investment bot letting users own virtual shares in ML server infrastructure and earn a share of rental revenue in COIN tokens.",
+      "problem": "Give everyday users a simple way to invest in AI compute infrastructure without the technical barriers of running or renting servers themselves.",
+      "solution": "Built the DIANA Telegram bot, letting users purchase virtual stakes in ML servers with automated payout of rental revenue in COIN tokens.",
+      "tech": ["Telegram Bot API", "Token / Rewards System"],
+      "results": [{ "metric": "75%", "label": "Rental revenue shared with token holders" }]
     }
   ]
 }
