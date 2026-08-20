@@ -71,6 +71,10 @@ export async function Hero() {
             ))}
           </div>
         </Reveal>
+
+        <Reveal delay={0.34}>
+          <p className="mt-8 text-sm text-ink/50 dark:text-paper/50">{t("integrations")}</p>
+        </Reveal>
       </div>
     </section>
   );

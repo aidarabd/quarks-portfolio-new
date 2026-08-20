@@ -2,7 +2,7 @@ import { Reveal } from "@/components/ui/Reveal";
 
 type Props = {
   tag: string;
-  title: string;
+  title?: string;
   description?: string;
   align?: "left" | "center";
 };
@@ -16,11 +16,13 @@ export function SectionHeading({ tag, title, description, align = "left" }: Prop
           {tag}
         </span>
       </Reveal>
-      <Reveal delay={0.05}>
-        <h2 className="mt-4 font-display text-4xl font-medium leading-[1.05] tracking-tight text-ink sm:text-5xl md:text-6xl dark:text-paper">
-          {title}
-        </h2>
-      </Reveal>
+      {title && (
+        <Reveal delay={0.05}>
+          <h2 className="mt-4 font-display text-4xl font-medium leading-[1.05] tracking-tight text-ink sm:text-5xl md:text-6xl dark:text-paper">
+            {title}
+          </h2>
+        </Reveal>
+      )}
       {description && (
         <Reveal delay={0.1}>
           <p

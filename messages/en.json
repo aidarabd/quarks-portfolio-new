@@ -38,7 +38,8 @@
       { "value": "70–80%", "label": "Avg. process time reduction" },
       { "value": "8+", "label": "Years of enterprise experience" },
       { "value": "3+", "label": "Government systems delivered" }
-    ]
+    ],
+    "integrations": "We also build integrations with 1C, Bitrix24, and amoCRM"
   },
   "Marquee": {
     "words": [
@@ -91,6 +92,11 @@
     "processTitle": "Our delivery process",
     "processDescription": "Structured delivery from discovery to launch — every step is designed to reduce risk and maximize the value we deliver."
   },
+  "PricingSection": {
+    "tag": "Pricing",
+    "title": "Straightforward starting prices",
+    "description": "Most engagements fall into one of these three shapes. Final scope and price depend on your specific requirements."
+  },
   "AboutPage": {
     "tag": "About Us",
     "title": "Built by engineers who understand business",
@@ -129,6 +135,29 @@
     "sentTitle": "Message Sent",
     "sentBody": "Thank you for reaching out. We'll review your message and get back to you within one business day."
   },
+  "ServiceFeatures": [
+    "End-to-end Approach",
+    "Experienced Team",
+    "Modern Technology",
+    "Ongoing Support"
+  ],
+  "Pricing": [
+    {
+      "title": "CRM & Automation",
+      "price": "From $4,000",
+      "description": "Custom CRM builds and workflow automation tailored to how your team actually operates."
+    },
+    {
+      "title": "Mobile App",
+      "price": "From $2,000",
+      "description": "Native or cross-platform mobile apps for iOS and Android, built to launch and scale."
+    },
+    {
+      "title": "Website",
+      "price": "From $500",
+      "description": "Fast, modern websites — from a simple business site to a fully custom platform."
+    }
+  ],
   "ContactTopics": [
     "Process Automation",
     "Custom Web Application",
@@ -147,7 +176,7 @@
       "index": "01",
       "title": "Process Automation",
       "subtitle": "Eliminate manual work at scale",
-      "description": "Manual processes are a hidden tax on your organization — they slow delivery, introduce errors, and consume your team's most valuable hours. We analyze, map, and replace repetitive workflows with automated systems that operate faster, more accurately, and around the clock.",
+      "description": "Manual processes are a hidden tax on your organization. We replace repetitive workflows with automated systems that run faster, more accurately, and around the clock.",
       "outcomes": [
         "Automated document processing and routing",
         "Trigger-based workflow execution",
@@ -159,7 +188,7 @@
       "index": "02",
       "title": "Custom Web Applications",
       "subtitle": "Enterprise platforms built to last",
-      "description": "Off-the-shelf software is built for the average use case — your organization isn't average. We design and develop web applications precisely fitted to your requirements, built for reliability, security, and the scale of users you need to serve.",
+      "description": "Off-the-shelf software is built for the average case — your organization isn't. We build web applications precisely fitted to your requirements, reliability, and scale.",
       "outcomes": [
         "Citizen-facing and back-office portals",
         "Multi-role access and permissions management",
@@ -171,7 +200,7 @@
       "index": "03",
       "title": "System Integration",
       "subtitle": "Connect your digital infrastructure",
-      "description": "Most organizations run multiple systems that don't communicate. The result is manual data transfer, duplicate entry, and broken workflows. We build integrations that connect your existing tools — from legacy databases to modern APIs — into a cohesive ecosystem.",
+      "description": "Most organizations run systems that don't talk to each other. We connect your tools — from legacy databases to modern APIs — into one cohesive ecosystem.",
       "outcomes": [
         "REST and SOAP API integrations",
         "Legacy system connectivity",
@@ -183,7 +212,7 @@
       "index": "04",
       "title": "Government Digital Solutions",
       "subtitle": "Purpose-built for the public sector",
-      "description": "Government software demands absolute reliability, security, audit trails, and the ability to serve thousands of citizens simultaneously. Our team has delivered multiple national-level platforms — we know what high-stakes public software requires from day one.",
+      "description": "Government software demands absolute reliability, security, and audit trails. Our team has delivered multiple national-level platforms and knows what high-stakes public software requires.",
       "outcomes": [
         "Citizen registration and application portals",
         "Document issuance and verification systems",
@@ -195,7 +224,7 @@
       "index": "05",
       "title": "Internal Enterprise Tools",
       "subtitle": "Tools that fit how you actually work",
-      "description": "Generic SaaS products force your workflows into shapes they were never designed for. We build internal tools — dashboards, approval systems, case management, reporting — that match exactly how your team operates, not the other way around.",
+      "description": "Generic SaaS forces your workflows into shapes they were never meant for. We build internal tools that match how your team actually operates.",
       "outcomes": [
         "Custom dashboards and management panels",
         "Workflow and multi-stage approval systems",
@@ -207,7 +236,7 @@
       "index": "06",
       "title": "Data & Reporting",
       "subtitle": "Visibility into what matters",
-      "description": "Operational data is only valuable if you can read it. We build reporting layers, live dashboards, and analytics systems that give leadership and operational teams real-time visibility into performance, bottlenecks, and trends.",
+      "description": "Operational data is only valuable if you can read it. We build live dashboards and analytics that give your team real-time visibility into what matters.",
       "outcomes": [
         "Real-time operational dashboards",
         "Automated report generation and scheduling",

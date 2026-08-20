@@ -1,59 +1,42 @@
-"use client";
-
-import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { useState } from "react";
 import type { Project } from "@/data/content";
 import { CoverMedia } from "@/components/ui/CoverMedia";
+import { Reveal } from "@/components/ui/Reveal";
 
 export function WorkList({ projects }: { projects: Project[] }) {
-  const [active, setActive] = useState<string | null>(null);
-  const [pos, setPos] = useState({ x: 0, y: 0 });
-
-  const activeProject = projects.find((p) => p.slug === active);
-
   return (
-    <div onMouseMove={(e) => setPos({ x: e.clientX, y: e.clientY })}>
-      <div className="flex flex-col">
-        {projects.map((project, i) => (
-          <Link
-            key={project.slug}
-            href={`/work/${project.slug}`}
-            data-cursor="view"
-            onMouseEnter={() => setActive(project.slug)}
-            onMouseLeave={() => setActive(null)}
-            className="group grid grid-cols-1 items-center gap-4 border-t border-ink/10 py-8 transition-colors last:border-b hover:bg-ink/[0.02] sm:grid-cols-[auto_1fr_auto_auto] sm:gap-8 dark:border-paper/10 dark:hover:bg-paper/[0.03]"
-          >
-            <span className="font-display text-sm text-ink/40 dark:text-paper/40">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <div>
-              <p className="text-xs font-medium uppercase tracking-wide text-acid">{project.tag}</p>
-              <h3 className="mt-2 font-display text-3xl text-ink transition-colors group-hover:text-acid sm:text-4xl md:text-5xl dark:text-paper">
-                {project.title}
-              </h3>
+    <div className="grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+      {projects.map((project, i) => (
+        <Reveal key={project.slug} delay={(i % 3) * 0.08}>
+          <Link href={`/work/${project.slug}`} data-cursor="view" className="group block">
+            <div className="relative aspect-[3/4] overflow-hidden rounded-2xl">
+              <CoverMedia
+                project={project}
+                sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
+                className="transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+              <span className="absolute left-4 top-4 font-display text-sm text-paper/80">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="absolute right-4 top-4 text-sm text-paper/80">{project.year}</span>
             </div>
-            <span className="text-sm text-ink/40 dark:text-paper/40">{project.year}</span>
-            <ArrowUpRight size={28} className="hidden shrink-0 text-ink/30 sm:block dark:text-paper/30" />
-          </Link>
-        ))}
-      </div>
 
-      <AnimatePresence>
-        {activeProject && (
-          <motion.div
-            className="pointer-events-none fixed z-40 hidden h-56 w-80 overflow-hidden rounded-xl md:block"
-            style={{ left: pos.x + 24, top: pos.y - 112 }}
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.85 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <CoverMedia project={activeProject} sizes="320px" />
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <div className="mt-5 flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <p className="text-xs font-medium uppercase tracking-wide text-acid">{project.tag}</p>
+                <h3 className="mt-2 truncate font-display text-2xl text-ink transition-colors group-hover:text-acid dark:text-paper">
+                  {project.title}
+                </h3>
+              </div>
+              <ArrowUpRight
+                size={22}
+                className="mt-1 shrink-0 text-ink/30 transition-colors group-hover:text-acid dark:text-paper/30"
+              />
+            </div>
+          </Link>
+        </Reveal>
+      ))}
     </div>
   );
 }
