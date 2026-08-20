@@ -9,6 +9,7 @@ import { HeroPhotoStack } from "@/components/sections/HeroPhotoStack";
 export async function Hero() {
   const t = await getTranslations("Hero");
   const stats = t.raw("stats") as { value: string; label: string }[];
+  const integrationStats = t.raw("integrationStats") as { value: string; label: string }[];
 
   const tRoot = await getTranslations();
   const projects = mergeProjects(tRoot.raw("Projects"));
@@ -47,21 +48,26 @@ export async function Hero() {
                   {t("startProject")}
                 </MagneticButton>
               </div>
-              <Link
-                href="#work"
-                data-cursor="link"
-                className="mt-10 hidden items-center gap-2 text-sm font-medium uppercase tracking-wide text-ink/50 hover:text-acid md:flex dark:text-paper/50"
-              >
-                {t("scroll")}
-                <ArrowDownRight size={16} />
-              </Link>
+              
             </Reveal>
           </div>
 
           <HeroPhotoStack back={back} front={front} />
         </div>
-
         <Reveal delay={0.28}>
+          <span className="relative top-12 text-3xl italic text-acid">
+            {t("integrations")}
+          </span>
+          <div className="mt-16 grid grid-cols-1 gap-8 border-t border-ink/10 pt-10 sm:grid-cols-3 dark:border-paper/10">
+            {integrationStats.map((stat) => (
+              <div key={stat.value}>
+                <p className="font-display text-4xl text-ink dark:text-paper">{stat.value}</p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+        <Reveal delay={0.28}>
+
           <div className="mt-16 grid grid-cols-1 gap-8 border-t border-ink/10 pt-10 sm:grid-cols-3 dark:border-paper/10">
             {stats.map((stat) => (
               <div key={stat.label}>
@@ -71,10 +77,15 @@ export async function Hero() {
             ))}
           </div>
         </Reveal>
-
-        <Reveal delay={0.34}>
-          <p className="mt-8 text-sm text-ink/50 dark:text-paper/50">{t("integrations")}</p>
-        </Reveal>
+        
+        <Link
+          href="#work"
+          data-cursor="link"
+          className="mt-10 hidden items-center gap-2 text-sm font-medium uppercase tracking-wide text-ink/50 hover:text-acid md:flex dark:text-paper/50"
+        >
+          {t("scroll")}
+          <ArrowDownRight size={16} />
+        </Link>
       </div>
     </section>
   );

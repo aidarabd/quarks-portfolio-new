@@ -39,7 +39,12 @@
       { "value": "8+", "label": "Лет опыта в корпоративных системах" },
       { "value": "3+", "label": "Внедрённых государственных систем" }
     ],
-    "integrations": "А также делаем интеграции с 1С, Bitrix24 и amoCRM"
+    "integrationStats": [
+      { "value": "1C"},
+      { "value": "Bitrix24"},
+      { "value": "amoCRM"}
+    ],
+    "integrations": "Интеграции с:"
   },
   "Marquee": {
     "words": [
