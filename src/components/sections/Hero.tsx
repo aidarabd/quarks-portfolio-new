@@ -55,20 +55,23 @@ export async function Hero() {
           <HeroPhotoStack back={back} front={front} />
         </div>
         <Reveal delay={0.28}>
-          <span className="relative top-12 text-3xl italic text-acid">
-            {t("integrations")}
-          </span>
-          <div className="mt-16 grid grid-cols-1 gap-8 border-t border-ink/10 pt-10 sm:grid-cols-3 dark:border-paper/10">
-            {integrationStats.map((stat) => (
-              <div key={stat.value}>
-                <p className="font-display text-4xl text-ink dark:text-paper">{stat.value}</p>
-              </div>
-            ))}
+          <div className="mt-16 border-t border-ink/10 pt-10 dark:border-paper/10">
+            <p className="text-sm font-medium uppercase tracking-[0.2em] text-acid">{t("integrations")}</p>
+            <div className="mt-5 flex flex-wrap items-baseline gap-x-10 gap-y-3">
+              {integrationStats.map((stat) => (
+                <span
+                  key={stat.value}
+                  className="font-display text-4xl text-ink sm:text-5xl md:text-6xl dark:text-paper"
+                >
+                  {stat.value}
+                </span>
+              ))}
+            </div>
           </div>
         </Reveal>
-        <Reveal delay={0.28}>
 
-          <div className="mt-16 grid grid-cols-1 gap-8 border-t border-ink/10 pt-10 sm:grid-cols-3 dark:border-paper/10">
+        <Reveal delay={0.34}>
+          <div className="mt-10 grid grid-cols-1 gap-8 border-t border-ink/10 pt-10 sm:grid-cols-3 dark:border-paper/10">
             {stats.map((stat) => (
               <div key={stat.label}>
                 <p className="font-display text-4xl text-ink dark:text-paper">{stat.value}</p>
@@ -77,7 +80,7 @@ export async function Hero() {
             ))}
           </div>
         </Reveal>
-        
+
         <Link
           href="#work"
           data-cursor="link"

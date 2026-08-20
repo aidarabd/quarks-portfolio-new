@@ -8,6 +8,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Tag } from "@/components/ui/Tag";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { CoverMedia } from "@/components/ui/CoverMedia";
+import { FlowDiagram } from "@/components/ui/FlowDiagram";
 
 // Locale is resolved per-request from a cookie, so this route can't be
 // statically prerendered without freezing whichever locale was active at
@@ -119,6 +120,19 @@ export default async function CaseStudyPage({
             ))}
           </div>
         </Reveal>
+
+        {project.flow && (
+          <Reveal delay={0.12}>
+            <div className="mt-16 border-t border-ink/10 pt-10 dark:border-paper/10">
+              <p className="text-xs font-medium uppercase tracking-widest text-ink/40 dark:text-paper/40">
+                {tCase("howItWorks")}
+              </p>
+              <div className="mt-6">
+                <FlowDiagram steps={project.flow} />
+              </div>
+            </div>
+          </Reveal>
+        )}
 
         <Reveal delay={0.14}>
           <div className="mt-16 grid grid-cols-1 gap-8 border-t border-ink/10 pt-10 sm:grid-cols-3 dark:border-paper/10">

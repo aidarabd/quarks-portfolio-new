@@ -1,3 +1,5 @@
+import type { FlowNode } from "@/components/ui/FlowDiagram";
+
 export type Project = {
   slug: string;
   tag: string;
@@ -10,6 +12,7 @@ export type Project = {
   solution: string;
   tech: string[];
   results: { metric: string; label: string }[];
+  flow?: FlowNode[];
   url?: string;
 };
 
@@ -69,7 +72,7 @@ export const projectsMeta: ProjectMeta[] = [
   {
     slug: "coin-app",
     year: "2024",
-    cover: "/images/work/coin-app.png",
+    cover: "/images/work/coin-app.webp",
     url: "https://t.me/coin_app_bot",
   },
 ];
@@ -82,10 +85,14 @@ type ProjectText = {
   solution: string;
   tech: string[];
   results: { metric: string; label: string }[];
+  flow?: FlowNode[];
 };
 
 export function mergeProjects(items: ProjectText[]): Project[] {
-  return projectsMeta.map((meta, i) => ({ ...meta, ...items[i] }));
+  return projectsMeta.map((meta, i) => ({
+    ...meta,
+    ...items[i],
+  }));
 }
 
 export type TeamMember = {

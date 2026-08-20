@@ -73,12 +73,14 @@
   "WorkPage": {
     "tag": "Case Studies",
     "title": "Real systems. Real results.",
-    "description": "Every project we take on is high-stakes. Here is how we've solved them — and the measurable outcomes we delivered."
+    "description": "Every project we take on is high-stakes. Here is how we've solved them — and the measurable outcomes we delivered.",
+    "explore": "Explore"
   },
   "CaseStudy": {
     "allWork": "All Work",
     "theProblem": "The Problem",
     "theSolution": "The Solution",
+    "howItWorks": "How It Works",
     "visitSite": "Visit Site",
     "haveChallenge": "Have a similar challenge?",
     "startConversation": "Start a Conversation"
@@ -294,83 +296,125 @@
       "tag": "Logistics · Fleet Management",
       "title": "On Road Networks",
       "overview": "All-in-one fleet management and FMCSA-compliant ELD platform for trucking companies — combining driver hours logging, GPS tracking, and a driver-first mobile app.",
-      "problem": "Trucking fleets managed compliance, tracking, and driver coordination across disconnected tools and paper logbooks with no real-time visibility and constant risk of FMCSA violations.",
-      "solution": "Built an integrated platform with a driver mobile app and fleet back office — automating hours-of-service logging, real-time GPS tracking, route optimization, and offline history restoration.",
-      "tech": ["React Native", "Node.js", "GPS / Telematics", "ELD / FMCSA Compliance"],
+      "problem": "Trucking fleets managed compliance, tracking, and driver coordination across disconnected tools and paper logbooks, with no real-time visibility and constant risk of FMCSA violations. Drivers routinely spend hours in highway dead zones with no signal, so any logging system built around a constant connection would silently lose hours-of-service data — a compliance risk in itself.",
+      "solution": "Built an integrated platform with a driver mobile app and fleet back office, automating hours-of-service logging, real-time GPS tracking, and route optimization. The hardest part was the offline-first sync engine: logs are written locally in a tamper-evident, append-only format that satisfies FMCSA's audit requirements, then reconciled with the server once connectivity returns without creating duplicate or conflicting entries. We also had to normalize telemetry from several ELD hardware vendors, each exposing engine and GPS data slightly differently over Bluetooth.",
+      "tech": ["React Native", "Node.js", "GPS / Telematics", "ELD / FMCSA Compliance", "Offline-first Sync"],
       "results": [
         { "metric": "FMCSA", "label": "Compliant hours-of-service logging" },
         { "metric": "Real-time", "label": "GPS fleet tracking and telematics" },
         { "metric": "Eliminated", "label": "Manual paper logbooks" }
+      ],
+      "flow": [
+        { "icon": "smartphone", "label": "Driver App", "sublabel": "Offline HOS logging", "branchLabel": "ELD Hardware · Bluetooth" },
+        { "icon": "refreshCw", "label": "Sync Engine", "sublabel": "Tamper-evident reconciliation" },
+        { "icon": "barChart", "label": "Fleet Dashboard", "sublabel": "FMCSA-compliant records" }
       ]
     },
     {
       "tag": "Corporate · Web Platform",
       "title": "Diyar",
       "overview": "Modern corporate web presence for Diyar, built for clarity, speed, and professional presentation.",
-      "problem": "No digital platform to represent the company and reach clients online.",
-      "solution": "Clean corporate website with structured content and fast performance.",
-      "tech": ["Next.js", "Tailwind CSS"],
-      "results": [{ "metric": "Launched", "label": "Modern digital presence" }]
+      "problem": "No digital platform to represent the company and reach clients online — marketing relied entirely on offline materials, and the brand's visual identity had nowhere web-native to live.",
+      "solution": "Built a clean corporate website on a headless CMS so the team can update pages, media, and offers without touching code. We put real effort into the image pipeline and performance budget — the brand leans heavily on photography, so we needed aggressive optimization (responsive sizes, lazy loading) to keep load times fast without flattening the visual quality.",
+      "tech": ["Next.js", "Tailwind CSS", "Headless CMS", "Image Optimization Pipeline"],
+      "results": [{ "metric": "Launched", "label": "Modern digital presence" }],
+      "flow": [
+        { "icon": "users", "label": "Content Team", "sublabel": "Edits without touching code" },
+        { "icon": "cloud", "label": "Headless CMS", "sublabel": "Structured content model" },
+        { "icon": "server", "label": "Next.js Site", "sublabel": "Optimized image delivery" },
+        { "icon": "smartphone", "label": "Visitors", "sublabel": "Fast, on-brand pages" }
+      ]
     },
     {
       "tag": "Events · Technology",
       "title": "KIT Forum",
       "overview": "Platform for Central Asia's largest digital technology and innovation forum — managing registrations, agenda, and attendee experience at scale.",
-      "problem": "Thousands of registrations, speakers, and sessions with no unified system created logistical chaos.",
-      "solution": "End-to-end event platform covering registrations, session scheduling, speaker profiles, and automated attendee communications.",
-      "tech": ["Next.js", "PostgreSQL", "Email Automation"],
-      "results": [{ "metric": "Central Asia's", "label": "Largest tech forum digitized" }]
+      "problem": "Thousands of registrations, speakers, and sessions with no unified system created logistical chaos. Registration volume spikes hard in the days before each early-bird deadline, and the system needed to survive that burst without losing a signup or double-charging anyone who double-clicked submit.",
+      "solution": "Built an end-to-end event platform covering registrations, session scheduling, speaker profiles, and automated attendee communications. Registration submissions are idempotent and sit behind a rate-limited queue, so traffic spikes get smoothed out instead of dropping data. The scheduling tool flags room and speaker conflicts automatically across parallel tracks, and outbound email/SMS campaigns run through a warmed, authenticated sending pipeline (SPF/DKIM/DMARC) so attendee communications land in the inbox instead of spam.",
+      "tech": ["Next.js", "PostgreSQL", "Email Automation", "Rate-limited Queueing"],
+      "results": [{ "metric": "Central Asia's", "label": "Largest tech forum digitized" }],
+      "flow": [
+        { "icon": "users", "label": "Registration Request", "sublabel": "Attendee signs up" },
+        { "icon": "refreshCw", "label": "Rate-limited Queue", "sublabel": "Smooths traffic spikes", "branchLabel": "Idempotency Check" },
+        { "icon": "mail", "label": "Confirmed & Notified", "sublabel": "SPF/DKIM email + SMS" }
+      ]
     },
     {
       "tag": "Proptech · Blockchain",
       "title": "Atria",
       "overview": "Blockchain platform enabling real estate tokenization and fractional property investment in Kyrgyzstan.",
-      "problem": "Real estate was illiquid and inaccessible — large capital requirements locked out most investors.",
-      "solution": "Tokenized property assets for fractional ownership and transparent digital trading on a blockchain ledger.",
-      "tech": ["Blockchain", "Next.js", "Smart Contracts"],
-      "results": [{ "metric": "First", "label": "Real estate tokenization platform in Kyrgyzstan" }]
+      "problem": "Real estate was illiquid and inaccessible — large capital requirements locked out most investors. Kyrgyz property law also has no precedent for on-chain title transfer, so a purely on-chain approach would have left token holders with no enforceable legal claim.",
+      "solution": "Tokenized property assets for fractional ownership and transparent digital trading on a blockchain ledger. Because local law doesn't yet recognize on-chain title transfer, we built a hybrid structure: each token is backed by a legal ownership wrapper reconciled against an off-chain registry, so investors hold both a tradeable token and an enforceable claim. Smart contracts went through multiple audit passes given real money was at stake, and every wallet is KYC-gated before it can hold or trade tokens.",
+      "tech": ["Blockchain", "Next.js", "Smart Contracts", "KYC/AML Gating"],
+      "results": [{ "metric": "First", "label": "Real estate tokenization platform in Kyrgyzstan" }],
+      "flow": [
+        { "icon": "wallet", "label": "Investor Wallet", "sublabel": "Whitelisted address", "branchLabel": "KYC/AML Gate" },
+        { "icon": "fileCheck", "label": "Smart Contract", "sublabel": "Fractional token mint" },
+        { "icon": "landmark", "label": "Legal Registry", "sublabel": "Off-chain ownership record" }
+      ]
     },
     {
       "tag": "Fintech · Payments",
       "title": "Finipay",
       "overview": "Corporate payment platform with digital wallets, analytics, and ML fraud prevention for Kyrgyz businesses.",
-      "problem": "SMEs juggling disconnected payment tools with no unified reporting or compliance.",
-      "solution": "Finipay CORE — payment acceptance, corporate wallets, ML fraud prevention, and real-time financial analytics.",
-      "tech": [".NET", "PostgreSQL", "Machine Learning", "Payment APIs"],
+      "problem": "SMEs juggling disconnected payment tools with no unified reporting or compliance. Reconciling transactions meant checking multiple bank portals by hand, and fraud review happened after the fact — often after the money was already gone.",
+      "solution": "Finipay CORE — payment acceptance, corporate wallets, ML fraud prevention, and real-time financial analytics. Fraud scoring runs inline, inside the authorization path itself, so a transaction can be flagged or blocked before it settles rather than after. Card data is tokenized at the edge so raw numbers never touch our application servers, and each partner bank's core banking API — every one with different latency and uptime — sits behind a resilient integration layer with circuit breakers and reconciliation jobs that catch any webhook a bank fails to deliver.",
+      "tech": [".NET", "PostgreSQL", "Machine Learning", "Payment APIs", "Card Tokenization", "Circuit Breakers"],
       "results": [
         { "metric": "Integrated", "label": "With major banks and international payment systems" },
         { "metric": "ML", "label": "Fraud prevention built in" }
+      ],
+      "flow": [
+        { "icon": "creditCard", "label": "Transaction Request", "sublabel": "Card tokenized at the edge" },
+        { "icon": "shieldCheck", "label": "Inline ML Scoring", "sublabel": "Real-time fraud check", "branchLabel": "Bank API · Circuit Breaker" },
+        { "icon": "fileCheck", "label": "Authorization Decision", "sublabel": "Approve, flag, or block" }
       ]
     },
     {
       "tag": "SaaS · Booking",
       "title": "Booka",
       "overview": "Multi-language SaaS letting service businesses automate client bookings 24/7 without phone calls.",
-      "problem": "Clients lost after hours, staff overwhelmed with manual scheduling and no-show management.",
-      "solution": "24/7 self-booking with WhatsApp/SMS reminders, staff calendars, client analytics, and mobile apps.",
-      "tech": ["React Native", "Node.js", "WhatsApp API", "SMS Gateway"],
+      "problem": "Clients lost after hours, staff overwhelmed with manual scheduling and no-show management. Multi-location businesses had no protection against double-booking when two clients grabbed the same slot at once, and every business needed its own reminder cadence tuned to its own no-show patterns.",
+      "solution": "24/7 self-booking with WhatsApp/SMS reminders, staff calendars, client analytics, and mobile apps. Slot reservation is atomic — a booking attempt locks the slot the instant it's submitted, so concurrent clients can never double-book the same appointment. Reminder sequences are configurable per business and queued to respect WhatsApp Business API's messaging and template-approval limits, and the whole product runs in four languages (Russian, English, Czech, Ukrainian) with fully localized content, not just translated UI strings.",
+      "tech": ["React Native", "Node.js", "WhatsApp API", "SMS Gateway", "Atomic Slot Locking"],
       "results": [
         { "metric": "24/7", "label": "Automated bookings, zero phone calls" },
         { "metric": "Reduced", "label": "No-shows via automated reminders" }
+      ],
+      "flow": [
+        { "icon": "smartphone", "label": "Booking Request", "sublabel": "Client picks a slot" },
+        { "icon": "lock", "label": "Atomic Slot Lock", "sublabel": "No double-booking" },
+        { "icon": "messageSquare", "label": "Reminder Sent", "sublabel": "Configurable cadence", "branchLabel": "WhatsApp / SMS API" }
       ]
     },
     {
       "tag": "EdTech · Telegram Mini App",
       "title": "Tinlake",
       "overview": "EdTech mini-app delivered entirely through Telegram, reaching learners without requiring a separate app install.",
-      "problem": "Reaching students where they already spend time — inside Telegram — without the friction and drop-off of a native app download.",
-      "solution": "Built a Telegram-native mini-app experience for EdTech content and interactions, distributed through the Tinlake bot.",
-      "tech": ["Telegram Bot API", "Telegram Mini Apps"],
-      "results": [{ "metric": "62,977+", "label": "Monthly active users" }]
+      "problem": "Reaching students where they already spend time — inside Telegram — without the friction and drop-off of a native app download. Telegram Mini Apps run inside a constrained WebView that Telegram can suspend at any moment, so a learner's progress could vanish mid-lesson if the app wasn't built to survive that.",
+      "solution": "Built a Telegram-native mini-app experience for EdTech content and interactions, distributed through the Tinlake bot. Lesson state is persisted continuously rather than on exit, so progress survives even if Telegram kills the WebView mid-session. At nearly 63,000 monthly users, webhook traffic from Telegram arrives in unpredictable bursts, so the bot's update handler runs behind a message queue that smooths spikes instead of dropping updates, and bulk reminders respect Telegram's global rate limit on outbound messages.",
+      "tech": ["Telegram Bot API", "Telegram Mini Apps", "Message Queueing"],
+      "results": [{ "metric": "62,977+", "label": "Monthly active users" }],
+      "flow": [
+        { "icon": "refreshCw", "label": "Message Queue", "sublabel": "Smooths bursty traffic", "branchLabel": "Telegram Webhook" },
+        { "icon": "smartphone", "label": "Mini App WebView", "sublabel": "Runs the lesson" },
+        { "icon": "database", "label": "Progress Saved", "sublabel": "Persisted continuously" }
+      ]
     },
     {
       "tag": "Fintech · Telegram Mini App",
       "title": "Coin App (DIANA)",
       "overview": "Telegram-based investment bot letting users own virtual shares in ML server infrastructure and earn a share of rental revenue in COIN tokens.",
-      "problem": "Give everyday users a simple way to invest in AI compute infrastructure without the technical barriers of running or renting servers themselves.",
-      "solution": "Built the DIANA Telegram bot, letting users purchase virtual stakes in ML servers with automated payout of rental revenue in COIN tokens.",
-      "tech": ["Telegram Bot API", "Token / Rewards System"],
-      "results": [{ "metric": "75%", "label": "Rental revenue shared with token holders" }]
+      "problem": "Give everyday users a simple way to invest in AI compute infrastructure without the technical barriers of running or renting servers themselves — and do it inside Telegram's chat interface, which has none of the dashboard UI a financial product normally leans on.",
+      "solution": "Built the DIANA Telegram bot, letting users purchase virtual stakes in ML servers with automated payout of rental revenue in COIN tokens. A reconciliation job pulls real usage and billing data from the server infrastructure and calculates each holder's pro-rata share, handling the rounding and dust that come with splitting revenue across many small stakeholders. With no dashboard to work with, the balance, transaction history, and withdrawal flow all had to be rebuilt around Telegram's inline keyboards instead of a normal fintech UI.",
+      "tech": ["Telegram Bot API", "Token / Rewards System", "Revenue Reconciliation"],
+      "results": [{ "metric": "75%", "label": "Rental revenue shared with token holders" }],
+      "flow": [
+        { "icon": "server", "label": "Server Usage Data", "sublabel": "Real billing & rental data" },
+        { "icon": "refreshCw", "label": "Reconciliation Job", "sublabel": "Pro-rata calculation" },
+        { "icon": "coins", "label": "Token Payout", "sublabel": "COIN distributed" },
+        { "icon": "bot", "label": "Telegram Wallet", "sublabel": "Balance & history via bot" }
+      ]
     }
   ]
 }
